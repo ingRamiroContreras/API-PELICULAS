@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     def show
       json_response(@movie)
     end
-  
+      
     # PUT /movies/:id
     def update
       @movie.update(movie_params)
@@ -29,17 +29,21 @@ class MoviesController < ApplicationController
       @movie.destroy
       head :no_content
     end
+
+    # GET /movies/fecha/:fecha
+    def show_fechacreacion
+      @moviefecha = Movie.where("created_at <= ?", params[:fecha] + "T00:00:00.357Z")
+      json_response(@moviefecha)
+    end
   
     private
-  
     def movie_params
       # whitelist params
-      params.permit(:nombre, :descripcion, :url_img, :dias_presentacion )
+      params.permit(:nombre, :descripcion, :url_img, :dias_presentacion, :fecha)
     end
   
     def set_movie
-      @movie = Movie.find(params[:id])
+      @movie = Movie.find(params[:id]) 
     end
 
- 
 end

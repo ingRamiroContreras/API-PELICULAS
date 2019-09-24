@@ -9,8 +9,13 @@ class ReservasController < ApplicationController
   
     # POST /reservas
     def create
-      @reserva = Reserva.create!(reserva_params)
-      json_response(@reserva, :created)
+      if Reserva.where({movie_id: params[:movie_id], fecha_reserva: params[:fecha_reserva]}).size <= 9
+        
+        json_response(Reserva.create!(reserva_params), :created) 
+      elsif
+        json_response({message: "La pelicula no tiene reservas disponibles para ese día"}, 422)
+
+      end
     end
   
     # GET /reservas/:id
@@ -34,7 +39,7 @@ class ReservasController < ApplicationController
   
     def reserva_params
       # whitelist params
-      params.permit(:nombre, :cedula, :correo, :movie_id )
+      params.permit(:nombre, :cedula, :fecha_reserva, :correo, :movie_id)
     end
   
     def set_reserva

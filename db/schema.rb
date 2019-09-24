@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_22_160017) do
+ActiveRecord::Schema.define(version: 2019_09_23_235914) do
 
   create_table "movies", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_160017) do
     t.integer "movie_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "fecha_reserva"
     t.index ["movie_id"], name: "index_reservas_on_movie_id"
   end
 
